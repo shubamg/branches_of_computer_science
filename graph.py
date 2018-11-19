@@ -9,6 +9,8 @@ class Graph:
         self.id_to_node = {}
         self.basic_id_to_count = {}
         self.source = None
+        self.depths = {}
+        self.frequency_of_depth = {}
 
     @staticmethod
     def convert_raw_text_to_basic_node_id(raw_text):
@@ -33,13 +35,24 @@ class Graph:
         node = Node(node_id, raw_name, parent_node)
         if not parent_node:
             self.source = node
+            self.depths[node_id] = 0
+            self.frequency_of_depth[0] = 1
         else:
             parent_node.append_child(node)
+            new_depth = self.depths[parent_node.get_id()]+1
+            self.depths[node_id] = new_depth
+            if new_depth not in self.frequency_of_depth:
+                self.frequency_of_depth[new_depth] = 1
+            else:
+                self.frequency_of_depth[new_depth] += 1
         self.id_to_node[node_id] = node
         return node
 
     def get_source(self):
         return self.source
+
+    def get_freq_of_depth(self, depth):
+        return self.frequency_of_depth[depth]
 
     # Assume single key in dict, which is the source node of the graph
     def add_nodes_recursively_from_yaml(self, yaml_file_name):
@@ -77,8 +90,12 @@ class Graph:
             value = dict_for_graph[key]
             self.__insert_dict_val_in_graph(value, curr_node)
 
+    def get_depth(self, node):
+        return self.depths[node.get_id()]
+
     def __str__(self):
         str_representation = 'List of nodes in graph is:\n\n'
         for node in self.id_to_node.values():
-            str_representation += (node.__str__()+'\n\n')
+            str_representation += (node.__str__()+'\ndepth: {0}\n\n'.
+                                   format(self.get_depth(node)))
         return str_representation
