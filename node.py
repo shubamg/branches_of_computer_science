@@ -16,6 +16,12 @@ class Node:
     def append_child(self, child_node):
         self.children.append(child_node)
 
+    def get_children(self):
+        return self.children
+
+    def get_label(self):
+        return self.label
+
     def __str__(self):
         parent_id = ''
         ids_of_children = [child_node.get_id() for child_node in self.children]
