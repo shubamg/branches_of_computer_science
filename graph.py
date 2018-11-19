@@ -41,7 +41,7 @@ class Graph:
     def get_source(self):
         return self.source
 
-    # Assume single key in dict, which is the source node
+    # Assume single key in dict, which is the source node of the graph
     def add_nodes_recursively_from_yaml(self, yaml_file_name):
         with open(yaml_file_name, 'r') as stream:
             loaded_yaml = yaml.load(stream)
