@@ -13,6 +13,9 @@ A project which prints a graph of branches of Computer Science
 - yaml module for python
 
 ## Steps to run:
-- python main.py
-- dot -T<extension> branches_of_CSE.dot -o branches_of_CSE.<extension>
-      Here extension is any extension supported by dot, including pdf, png etc.
+```shell
+python main.py
+dot -T<extension> branches_of_CSE.dot -o branches_of_CSE.<extension>
+```
+
+Here extension is any extension supported by dot, including pdf, png etc.
