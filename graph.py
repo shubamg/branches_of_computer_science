@@ -33,6 +33,8 @@ class Graph:
         node = Node(node_id, raw_name, parent_node)
         if not parent_node:
             self.source = node
+        else:
+            parent_node.append_child(node)
         self.id_to_node[node_id] = node
         return node
 
